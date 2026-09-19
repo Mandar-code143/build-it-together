@@ -10,12 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlertsRouteImport } from './routes/alerts'
+import { Route as AuditRouteImport } from './routes/audit'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CommandsRouteImport } from './routes/commands'
 import { Route as NodesIndexRouteImport } from './routes/nodes.index'
+import { Route as NodesNodeIdRouteImport } from './routes/nodes.$nodeId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -23,39 +37,87 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommandsRoute = CommandsRouteImport.update({
+  id: '/commands',
+  path: '/commands',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NodesIndexRoute = NodesIndexRouteImport.update({
   id: '/nodes/',
   path: '/nodes/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NodesNodeIdRoute = NodesNodeIdRouteImport.update({
+  id: '/nodes/$nodeId',
+  path: '/nodes/$nodeId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
+  '/commands': typeof CommandsRoute
+  '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes/': typeof NodesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
+  '/commands': typeof CommandsRoute
+  '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes': typeof NodesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
+  '/commands': typeof CommandsRoute
+  '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes/': typeof NodesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/nodes/'
+  fullPaths:
+    | '/'
+    | '/alerts'
+    | '/audit'
+    | '/auth'
+    | '/commands'
+    | '/nodes/$nodeId'
+    | '/nodes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/nodes'
-  id: '__root__' | '/' | '/auth' | '/nodes/'
+  to:
+    | '/'
+    | '/alerts'
+    | '/audit'
+    | '/auth'
+    | '/commands'
+    | '/nodes/$nodeId'
+    | '/nodes'
+  id:
+    | '__root__'
+    | '/'
+    | '/alerts'
+    | '/audit'
+    | '/auth'
+    | '/commands'
+    | '/nodes/$nodeId'
+    | '/nodes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  AuditRoute: typeof AuditRoute
   AuthRoute: typeof AuthRoute
+  CommandsRoute: typeof CommandsRoute
+  NodesNodeIdRoute: typeof NodesNodeIdRoute
   NodesIndexRoute: typeof NodesIndexRoute
 }
 
@@ -68,11 +130,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commands': {
+      id: '/commands'
+      path: '/commands'
+      fullPath: '/commands'
+      preLoaderRoute: typeof CommandsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nodes/': {
@@ -82,12 +165,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NodesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nodes/$nodeId': {
+      id: '/nodes/$nodeId'
+      path: '/nodes/$nodeId'
+      fullPath: '/nodes/$nodeId'
+      preLoaderRoute: typeof NodesNodeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  AuditRoute: AuditRoute,
   AuthRoute: AuthRoute,
+  CommandsRoute: CommandsRoute,
+  NodesNodeIdRoute: NodesNodeIdRoute,
   NodesIndexRoute: NodesIndexRoute,
 }
 export const routeTree = rootRouteImport
