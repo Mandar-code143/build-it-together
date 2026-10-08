@@ -75,7 +75,7 @@ function Enrollment() {
     });
     setBusy(false);
     if (error) return setErr(error.message);
-    await supabase.from("audit_logs").insert({ action: "enrollment_token.created", actor_id: user.id, actor_label: user.email, target_type: "enrollment_token", details: { label, environment, max_uses: uses } as never });
+    await supabase.from("audit_logs").insert({ action: "enrollment_token.created", actor_id: user.id, actor_label: user.email ?? null, target_type: "enrollment_token", details: { label, environment, max_uses: uses } as never });
     setCreated(token);
     qc.invalidateQueries({ queryKey: ["enrollment-tokens"] });
   }
