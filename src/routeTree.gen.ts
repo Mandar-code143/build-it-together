@@ -14,8 +14,16 @@ import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuditRouteImport } from './routes/audit'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CommandsRouteImport } from './routes/commands'
+import { Route as ObservabilityRouteImport } from './routes/observability'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as NodesIndexRouteImport } from './routes/nodes.index'
 import { Route as NodesNodeIdRouteImport } from './routes/nodes.$nodeId'
+import { Route as ApiPublicAgentCommandsRouteImport } from './routes/api/public/agent/commands'
+import { Route as ApiPublicAgentEnrollRouteImport } from './routes/api/public/agent/enroll'
+import { Route as ApiPublicAgentHeartbeatRouteImport } from './routes/api/public/agent/heartbeat'
+import { Route as ApiPublicCronAvailabilityRouteImport } from './routes/api/public/cron/availability'
+import { Route as ApiPublicPrometheusTargetsRouteImport } from './routes/api/public/prometheus/targets'
+import { Route as ApiPublicAgentCommandsCommandIdResultRouteImport } from './routes/api/public/agent/commands.$commandId.result'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -42,6 +50,16 @@ const CommandsRoute = CommandsRouteImport.update({
   path: '/commands',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ObservabilityRoute = ObservabilityRouteImport.update({
+  id: '/observability',
+  path: '/observability',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NodesIndexRoute = NodesIndexRouteImport.update({
   id: '/nodes/',
   path: '/nodes/',
@@ -52,6 +70,39 @@ const NodesNodeIdRoute = NodesNodeIdRouteImport.update({
   path: '/nodes/$nodeId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAgentCommandsRoute = ApiPublicAgentCommandsRouteImport.update({
+  id: '/api/public/agent/commands',
+  path: '/api/public/agent/commands',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicAgentEnrollRoute = ApiPublicAgentEnrollRouteImport.update({
+  id: '/api/public/agent/enroll',
+  path: '/api/public/agent/enroll',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicAgentHeartbeatRoute = ApiPublicAgentHeartbeatRouteImport.update({
+  id: '/api/public/agent/heartbeat',
+  path: '/api/public/agent/heartbeat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicCronAvailabilityRoute =
+  ApiPublicCronAvailabilityRouteImport.update({
+    id: '/api/public/cron/availability',
+    path: '/api/public/cron/availability',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicPrometheusTargetsRoute =
+  ApiPublicPrometheusTargetsRouteImport.update({
+    id: '/api/public/prometheus/targets',
+    path: '/api/public/prometheus/targets',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAgentCommandsCommandIdResultRoute =
+  ApiPublicAgentCommandsCommandIdResultRouteImport.update({
+    id: '/$commandId/result',
+    path: '/$commandId/result',
+    getParentRoute: () => ApiPublicAgentCommandsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,8 +110,16 @@ export interface FileRoutesByFullPath {
   '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/commands': typeof CommandsRoute
+  '/observability': typeof ObservabilityRoute
+  '/settings': typeof SettingsRoute
   '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes/': typeof NodesIndexRoute
+  '/api/public/agent/commands': typeof ApiPublicAgentCommandsRouteWithChildren
+  '/api/public/agent/enroll': typeof ApiPublicAgentEnrollRoute
+  '/api/public/agent/heartbeat': typeof ApiPublicAgentHeartbeatRoute
+  '/api/public/cron/availability': typeof ApiPublicCronAvailabilityRoute
+  '/api/public/prometheus/targets': typeof ApiPublicPrometheusTargetsRoute
+  '/api/public/agent/commands/$commandId/result': typeof ApiPublicAgentCommandsCommandIdResultRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -68,8 +127,16 @@ export interface FileRoutesByTo {
   '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/commands': typeof CommandsRoute
+  '/observability': typeof ObservabilityRoute
+  '/settings': typeof SettingsRoute
   '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes': typeof NodesIndexRoute
+  '/api/public/agent/commands': typeof ApiPublicAgentCommandsRouteWithChildren
+  '/api/public/agent/enroll': typeof ApiPublicAgentEnrollRoute
+  '/api/public/agent/heartbeat': typeof ApiPublicAgentHeartbeatRoute
+  '/api/public/cron/availability': typeof ApiPublicCronAvailabilityRoute
+  '/api/public/prometheus/targets': typeof ApiPublicPrometheusTargetsRoute
+  '/api/public/agent/commands/$commandId/result': typeof ApiPublicAgentCommandsCommandIdResultRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,8 +145,16 @@ export interface FileRoutesById {
   '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/commands': typeof CommandsRoute
+  '/observability': typeof ObservabilityRoute
+  '/settings': typeof SettingsRoute
   '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes/': typeof NodesIndexRoute
+  '/api/public/agent/commands': typeof ApiPublicAgentCommandsRouteWithChildren
+  '/api/public/agent/enroll': typeof ApiPublicAgentEnrollRoute
+  '/api/public/agent/heartbeat': typeof ApiPublicAgentHeartbeatRoute
+  '/api/public/cron/availability': typeof ApiPublicCronAvailabilityRoute
+  '/api/public/prometheus/targets': typeof ApiPublicPrometheusTargetsRoute
+  '/api/public/agent/commands/$commandId/result': typeof ApiPublicAgentCommandsCommandIdResultRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -89,8 +164,16 @@ export interface FileRouteTypes {
     | '/audit'
     | '/auth'
     | '/commands'
+    | '/observability'
+    | '/settings'
     | '/nodes/$nodeId'
     | '/nodes/'
+    | '/api/public/agent/commands'
+    | '/api/public/agent/enroll'
+    | '/api/public/agent/heartbeat'
+    | '/api/public/cron/availability'
+    | '/api/public/prometheus/targets'
+    | '/api/public/agent/commands/$commandId/result'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -98,8 +181,16 @@ export interface FileRouteTypes {
     | '/audit'
     | '/auth'
     | '/commands'
+    | '/observability'
+    | '/settings'
     | '/nodes/$nodeId'
     | '/nodes'
+    | '/api/public/agent/commands'
+    | '/api/public/agent/enroll'
+    | '/api/public/agent/heartbeat'
+    | '/api/public/cron/availability'
+    | '/api/public/prometheus/targets'
+    | '/api/public/agent/commands/$commandId/result'
   id:
     | '__root__'
     | '/'
@@ -107,8 +198,16 @@ export interface FileRouteTypes {
     | '/audit'
     | '/auth'
     | '/commands'
+    | '/observability'
+    | '/settings'
     | '/nodes/$nodeId'
     | '/nodes/'
+    | '/api/public/agent/commands'
+    | '/api/public/agent/enroll'
+    | '/api/public/agent/heartbeat'
+    | '/api/public/cron/availability'
+    | '/api/public/prometheus/targets'
+    | '/api/public/agent/commands/$commandId/result'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -117,8 +216,15 @@ export interface RootRouteChildren {
   AuditRoute: typeof AuditRoute
   AuthRoute: typeof AuthRoute
   CommandsRoute: typeof CommandsRoute
+  ObservabilityRoute: typeof ObservabilityRoute
+  SettingsRoute: typeof SettingsRoute
   NodesNodeIdRoute: typeof NodesNodeIdRoute
   NodesIndexRoute: typeof NodesIndexRoute
+  ApiPublicAgentCommandsRoute: typeof ApiPublicAgentCommandsRouteWithChildren
+  ApiPublicAgentEnrollRoute: typeof ApiPublicAgentEnrollRoute
+  ApiPublicAgentHeartbeatRoute: typeof ApiPublicAgentHeartbeatRoute
+  ApiPublicCronAvailabilityRoute: typeof ApiPublicCronAvailabilityRoute
+  ApiPublicPrometheusTargetsRoute: typeof ApiPublicPrometheusTargetsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -158,6 +264,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommandsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/observability': {
+      id: '/observability'
+      path: '/observability'
+      fullPath: '/observability'
+      preLoaderRoute: typeof ObservabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nodes/': {
       id: '/nodes/'
       path: '/nodes'
@@ -172,8 +292,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NodesNodeIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/agent/commands': {
+      id: '/api/public/agent/commands'
+      path: '/api/public/agent/commands'
+      fullPath: '/api/public/agent/commands'
+      preLoaderRoute: typeof ApiPublicAgentCommandsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/agent/enroll': {
+      id: '/api/public/agent/enroll'
+      path: '/api/public/agent/enroll'
+      fullPath: '/api/public/agent/enroll'
+      preLoaderRoute: typeof ApiPublicAgentEnrollRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/agent/heartbeat': {
+      id: '/api/public/agent/heartbeat'
+      path: '/api/public/agent/heartbeat'
+      fullPath: '/api/public/agent/heartbeat'
+      preLoaderRoute: typeof ApiPublicAgentHeartbeatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/cron/availability': {
+      id: '/api/public/cron/availability'
+      path: '/api/public/cron/availability'
+      fullPath: '/api/public/cron/availability'
+      preLoaderRoute: typeof ApiPublicCronAvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/prometheus/targets': {
+      id: '/api/public/prometheus/targets'
+      path: '/api/public/prometheus/targets'
+      fullPath: '/api/public/prometheus/targets'
+      preLoaderRoute: typeof ApiPublicPrometheusTargetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/agent/commands/$commandId/result': {
+      id: '/api/public/agent/commands/$commandId/result'
+      path: '/$commandId/result'
+      fullPath: '/api/public/agent/commands/$commandId/result'
+      preLoaderRoute: typeof ApiPublicAgentCommandsCommandIdResultRouteImport
+      parentRoute: typeof ApiPublicAgentCommandsRoute
+    }
   }
 }
+
+interface ApiPublicAgentCommandsRouteChildren {
+  ApiPublicAgentCommandsCommandIdResultRoute: typeof ApiPublicAgentCommandsCommandIdResultRoute
+}
+
+const ApiPublicAgentCommandsRouteChildren: ApiPublicAgentCommandsRouteChildren =
+  {
+    ApiPublicAgentCommandsCommandIdResultRoute:
+      ApiPublicAgentCommandsCommandIdResultRoute,
+  }
+
+const ApiPublicAgentCommandsRouteWithChildren =
+  ApiPublicAgentCommandsRoute._addFileChildren(
+    ApiPublicAgentCommandsRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -181,8 +358,15 @@ const rootRouteChildren: RootRouteChildren = {
   AuditRoute: AuditRoute,
   AuthRoute: AuthRoute,
   CommandsRoute: CommandsRoute,
+  ObservabilityRoute: ObservabilityRoute,
+  SettingsRoute: SettingsRoute,
   NodesNodeIdRoute: NodesNodeIdRoute,
   NodesIndexRoute: NodesIndexRoute,
+  ApiPublicAgentCommandsRoute: ApiPublicAgentCommandsRouteWithChildren,
+  ApiPublicAgentEnrollRoute: ApiPublicAgentEnrollRoute,
+  ApiPublicAgentHeartbeatRoute: ApiPublicAgentHeartbeatRoute,
+  ApiPublicCronAvailabilityRoute: ApiPublicCronAvailabilityRoute,
+  ApiPublicPrometheusTargetsRoute: ApiPublicPrometheusTargetsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
