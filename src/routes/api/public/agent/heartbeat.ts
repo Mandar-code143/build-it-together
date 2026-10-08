@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
-const n = z.number().finite().nullable().optional();
+const n = z.number().finite().nullable().optional().transform((v) => v ?? null);
 const Body = z.object({
   cpu_percent: n, memory_percent: n, disk_percent: n,
   memory_used_bytes: n, memory_total_bytes: n, disk_used_bytes: n, disk_total_bytes: n,
