@@ -14,6 +14,8 @@ import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuditRouteImport } from './routes/audit'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CommandsRouteImport } from './routes/commands'
+import { Route as ObservabilityRouteImport } from './routes/observability'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as NodesIndexRouteImport } from './routes/nodes.index'
 import { Route as NodesNodeIdRouteImport } from './routes/nodes.$nodeId'
 import { Route as ApiPublicAgentCommandsRouteImport } from './routes/api/public/agent/commands'
@@ -46,6 +48,16 @@ const AuthRoute = AuthRouteImport.update({
 const CommandsRoute = CommandsRouteImport.update({
   id: '/commands',
   path: '/commands',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ObservabilityRoute = ObservabilityRouteImport.update({
+  id: '/observability',
+  path: '/observability',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NodesIndexRoute = NodesIndexRouteImport.update({
@@ -98,6 +110,8 @@ export interface FileRoutesByFullPath {
   '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/commands': typeof CommandsRoute
+  '/observability': typeof ObservabilityRoute
+  '/settings': typeof SettingsRoute
   '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes/': typeof NodesIndexRoute
   '/api/public/agent/commands': typeof ApiPublicAgentCommandsRouteWithChildren
@@ -113,6 +127,8 @@ export interface FileRoutesByTo {
   '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/commands': typeof CommandsRoute
+  '/observability': typeof ObservabilityRoute
+  '/settings': typeof SettingsRoute
   '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes': typeof NodesIndexRoute
   '/api/public/agent/commands': typeof ApiPublicAgentCommandsRouteWithChildren
@@ -129,6 +145,8 @@ export interface FileRoutesById {
   '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/commands': typeof CommandsRoute
+  '/observability': typeof ObservabilityRoute
+  '/settings': typeof SettingsRoute
   '/nodes/$nodeId': typeof NodesNodeIdRoute
   '/nodes/': typeof NodesIndexRoute
   '/api/public/agent/commands': typeof ApiPublicAgentCommandsRouteWithChildren
@@ -146,6 +164,8 @@ export interface FileRouteTypes {
     | '/audit'
     | '/auth'
     | '/commands'
+    | '/observability'
+    | '/settings'
     | '/nodes/$nodeId'
     | '/nodes/'
     | '/api/public/agent/commands'
@@ -161,6 +181,8 @@ export interface FileRouteTypes {
     | '/audit'
     | '/auth'
     | '/commands'
+    | '/observability'
+    | '/settings'
     | '/nodes/$nodeId'
     | '/nodes'
     | '/api/public/agent/commands'
@@ -176,6 +198,8 @@ export interface FileRouteTypes {
     | '/audit'
     | '/auth'
     | '/commands'
+    | '/observability'
+    | '/settings'
     | '/nodes/$nodeId'
     | '/nodes/'
     | '/api/public/agent/commands'
@@ -192,6 +216,8 @@ export interface RootRouteChildren {
   AuditRoute: typeof AuditRoute
   AuthRoute: typeof AuthRoute
   CommandsRoute: typeof CommandsRoute
+  ObservabilityRoute: typeof ObservabilityRoute
+  SettingsRoute: typeof SettingsRoute
   NodesNodeIdRoute: typeof NodesNodeIdRoute
   NodesIndexRoute: typeof NodesIndexRoute
   ApiPublicAgentCommandsRoute: typeof ApiPublicAgentCommandsRouteWithChildren
@@ -236,6 +262,20 @@ declare module '@tanstack/react-router' {
       path: '/commands'
       fullPath: '/commands'
       preLoaderRoute: typeof CommandsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/observability': {
+      id: '/observability'
+      path: '/observability'
+      fullPath: '/observability'
+      preLoaderRoute: typeof ObservabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nodes/': {
@@ -318,6 +358,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuditRoute: AuditRoute,
   AuthRoute: AuthRoute,
   CommandsRoute: CommandsRoute,
+  ObservabilityRoute: ObservabilityRoute,
+  SettingsRoute: SettingsRoute,
   NodesNodeIdRoute: NodesNodeIdRoute,
   NodesIndexRoute: NodesIndexRoute,
   ApiPublicAgentCommandsRoute: ApiPublicAgentCommandsRouteWithChildren,
